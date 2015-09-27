@@ -32,14 +32,14 @@ Init the framework
 ******************
 
 
-```
+```java
 // Get singleton instance
 ocrAumentia = OCRAumentia.getmInstance();
 ```
 
 Use the build in camera to real time analyse the output frames:
 
-```
+```java
 // Get singleton instance
 // Init Text Recognition engine
 ocrAumentia.init(this, API_KEY, OCRAumentia.SCREEN_ORIENTATION_PORTRAIT, PreviewSizeWidth, PreviewSizeHeight, true, ImageFormat.NV21, frame, 400);
@@ -47,7 +47,7 @@ ocrAumentia.init(this, API_KEY, OCRAumentia.SCREEN_ORIENTATION_PORTRAIT, Preview
 
 Or analyse single images from the resources, assets, URL, etc
 
-```
+```java
 // Get singleton instance
 // Init Text Recognition engine
 ocrAumentia.init(this, API_KEY, 0);
@@ -55,33 +55,33 @@ ocrAumentia.init(this, API_KEY, 0);
 …
 
 /**
-     * Analyse image from assets folder and extract recognised text
-     */
-    private void processImageFromAssets()
+ * Analyse image from assets folder and extract recognised text
+ */
+private void processImageFromAssets()
+{
+    AssetManager assetManager = getAssets();
+
+    InputStream istr;
+
+    Bitmap bitmap       = null;
+
+    try
     {
-        AssetManager assetManager = getAssets();
-
-        InputStream istr;
-
-        Bitmap bitmap       = null;
-
-        try
-        {
-            istr    = assetManager.open("pic1.jpg");
-            bitmap  = BitmapFactory.decodeStream(istr);
-            // Make sure the image is decoded in the ARGB_8888 format
-            bitmap  = bitmap.copy(Bitmap.Config.ARGB_8888, true);
-        }
-        catch (IOException e)
-        {
-            Log.e(HELLO_TAG, e.getMessage());
-        }
-
-        if ( bitmap != null )
-        {
-            ocrAumentia.processFrame(bitmap, false);
-        }
+        istr    = assetManager.open("pic1.jpg");
+        bitmap  = BitmapFactory.decodeStream(istr);
+        // Make sure the image is decoded in the ARGB_8888 format
+        bitmap  = bitmap.copy(Bitmap.Config.ARGB_8888, true);
     }
+    catch (IOException e)
+    {
+        Log.e(HELLO_TAG, e.getMessage());
+    }
+
+    if ( bitmap != null )
+    {
+        ocrAumentia.processFrame(bitmap, false);
+    }
+}
 
 ```
 
@@ -93,7 +93,7 @@ Implement OnTextRecognition methods
 Get a list with the matched words and their confidence:
 
 
-```
+```java
 @Override
     public void matchedWords(Map<String, Integer> wordConfidenceMap)
     {
@@ -112,7 +112,7 @@ Get a list with the matched words and their confidence:
 
 For debug purpose you can also get the analysed frame with bounding boxes surrounding the matched words:
 
-```
+```java
 @Override
     public void imageResult(int[] outputData, int width, int height, boolean isRotated)
     {
@@ -157,7 +157,7 @@ For debug purpose you can also get the analysed frame with bounding boxes surrou
     }
 ```
 
-** Check the API doc for more info **
+**Check the API doc for more info**
 
 
 <br>
