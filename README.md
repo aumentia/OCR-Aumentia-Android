@@ -51,6 +51,38 @@ Or analyse single images from the resources, assets, URL, etc
 // Get singleton instance
 // Init Text Recognition engine
 ocrAumentia.init(this, API_KEY, 0);
+
+…
+
+/**
+     * Analyse image from assets folder and extract recognised text
+     */
+    private void processImageFromAssets()
+    {
+        AssetManager assetManager = getAssets();
+
+        InputStream istr;
+
+        Bitmap bitmap       = null;
+
+        try
+        {
+            istr    = assetManager.open("pic1.jpg");
+            bitmap  = BitmapFactory.decodeStream(istr);
+            // Make sure the image is decoded in the ARGB_8888 format
+            bitmap  = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+        }
+        catch (IOException e)
+        {
+            Log.e(HELLO_TAG, e.getMessage());
+        }
+
+        if ( bitmap != null )
+        {
+            ocrAumentia.processFrame(bitmap, false);
+        }
+    }
+
 ```
 
 <br>
